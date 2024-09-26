@@ -1,10 +1,11 @@
-class BookClass:
-    """
+class Book {
+    /*
     This is a class for Book. 
-    """
-    
-    def __init__(self, unique_id, title, author, pub_year):
-        """
+    */
+
+    constructor(id, title, author, year) {
+
+        /*
         The constructor for BookClass class.
         
         The BookClass class takes 3 arguments:
@@ -13,11 +14,14 @@ class BookClass:
         author (string) - the author of the book
         pub_year (int) - the year the book was published
         is_borrowed (bool) - the status of the book
-        """
-        
-        self.unique_id = unique_id
-        self.title = title
-        self.author = author
-        self.pub_year = pub_year
-        self.is_borrowed = False
-        
+        */
+
+        this.id = id;
+        this.title = title;
+        this.author = author;
+        this.year = year;
+        this.isBorrowed = false;
+    }
+}
+  
+module.exports = Book;
