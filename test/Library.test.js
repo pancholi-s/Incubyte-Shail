@@ -1,53 +1,63 @@
-// import pytest
-
-// from src.Book import BookClass
-
-// def test_book_class():
-//     book = BookClass("AAAA","Harry Potter", "J.K. Rowling", 1997)
-//     assert book.unique_id == "AAAA"
-//     assert book.title == "Harry Potter"
-//     assert book.author == "J.K. Rowling"
-//     assert book.pub_year == 1997
-
 const Library = require("../src/Library");
 
 describe("Library Management System", () => {
   let library;
 
+  // Initializes a new Library instance before each test
   beforeEach(() => {
     library = new Library();
   });
 
-  test("should add a new book to the library", () => {
-    library.addBook("123", "JavaScript for Beginners", "Ram Sharma", 2021);
-    const availableBooks = library.viewAvailableBooks();
+  /**
+   * Test case for adding a new book to the library.
+   * Verifies that the book is successfully added and is available for borrowing.
+   */
+  test("Add a new book.", () => {
+    library.add("55", "Introduction to DevOps", "Ram Sharma", 2024);
+    const availableBooks = library.available();
     expect(availableBooks.length).toBe(1);
-    expect(availableBooks[0].title).toBe("JavaScript for Beginners");
+    expect(availableBooks[0].title).toBe("Introduction to DevOps");
   });
 
-  test("should allow borrowing an available book", () => {
-    library.addBook("123", "JavaScript for Beginners", "Ram Sharma", 2021);
-    library.borrowBook("123");
-    const availableBooks = library.viewAvailableBooks();
+  /**
+   * Test case for borrowing an available book.
+   * Checks that the book count decreases after a successful borrow operation.
+   */
+  test("Borrow an available book.", () => {
+    library.add("55", "Introduction to DevOps", "Ram Sharma", 2024);
+    library.borrow("55");
+    const availableBooks = library.available();
     expect(availableBooks.length).toBe(0);
   });
 
-  test("should throw error when borrowing an unavailable book", () => {
-    library.addBook("123", "JavaScript for Beginners", "Ram Sharma", 2021);
-    library.borrowBook("123");
-    expect(() => library.borrowBook("123")).toThrow("Book already borrowed");
+  /**
+   * Test case for attempting to borrow a book that is already borrowed.
+   * Expects an error to be thrown indicating the book is unavailable.
+   */
+  test("Throw error when borrowing an unavailable book", () => {
+    library.add("55", "Introduction to DevOps", "Ram Sharma", 2024);
+    library.borrow("55");
+    expect(() => library.borrow("55")).toThrow("Book already borrowed");
   });
 
-  test("should return a borrowed book", () => {
-    library.addBook("123", "JavaScript for Beginners", "Ram Sharma", 2021);
-    library.borrowBook("123");
-    library.returnBook("123");
-    const availableBooks = library.viewAvailableBooks();
+  /**
+   * Test case for returning a borrowed book.
+   * Verifies that the book is marked as available again after being returned.
+   */
+  test("Returning a borrowed book", () => {
+    library.add("55", "Introduction to DevOps", "Ram Sharma", 2024);
+    library.borrow("55");
+    library.returnB("55");
+    const availableBooks = library.available();
     expect(availableBooks.length).toBe(1);
   });
 
-  test("should throw error when returning a non-borrowed book", () => {
-    library.addBook("123", "JavaScript for Beginners", "Ram Sharma", 2021);
-    expect(() => library.returnBook("456")).toThrow("Book not found");
+  /**
+   * Test case for attempting to return a book that has not been borrowed.
+   * Expects an error to be thrown indicating the book is not found.
+   */
+  test("Throw error when returning a not borrowed book", () => {
+    library.add("55", "Introduction to DevOps", "Ram Sharma", 2024);
+    expect(() => library.returnB("404")).toThrow("Book not found");
   });
 });

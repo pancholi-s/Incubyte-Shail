@@ -13,7 +13,7 @@ class Book {
         title (string) - the title of the book
         author (string) - the author of the book
         pub_year (int) - the year the book was published
-        is_borrowed (bool) - the status of the book
+        is_borrowed (bool) - the status of the book (available by default)
         */
 
         this.id = id;
