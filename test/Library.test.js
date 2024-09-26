@@ -31,4 +31,23 @@ describe("Library Management System", () => {
     const availableBooks = library.viewAvailableBooks();
     expect(availableBooks.length).toBe(0);
   });
+
+  test("should throw error when borrowing an unavailable book", () => {
+    library.addBook("123", "JavaScript for Beginners", "Ram Sharma", 2021);
+    library.borrowBook("123");
+    expect(() => library.borrowBook("123")).toThrow("Book already borrowed");
+  });
+
+  test("should return a borrowed book", () => {
+    library.addBook("123", "JavaScript for Beginners", "Ram Sharma", 2021);
+    library.borrowBook("123");
+    library.returnBook("123");
+    const availableBooks = library.viewAvailableBooks();
+    expect(availableBooks.length).toBe(1);
+  });
+
+  test("should throw error when returning a non-borrowed book", () => {
+    library.addBook("123", "JavaScript for Beginners", "Ram Sharma", 2021);
+    expect(() => library.returnBook("456")).toThrow("Book not found");
+  });
 });
